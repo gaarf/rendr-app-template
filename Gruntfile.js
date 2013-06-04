@@ -20,14 +20,14 @@ module.exports = function(grunt) {
       },
     },
 
-    stylus: {
+    less: {
       compile: {
         options: {
           paths: [stylesheetsDir],
-          'include css': true
+          yuicompress: false
         },
         files: {
-          'public/styles.css': stylesheetsDir + '/index.styl'
+          'public/styles.css': stylesheetsDir + '/index.less'
         }
       }
     },
@@ -68,8 +68,8 @@ module.exports = function(grunt) {
         }
       },
       stylesheets: {
-        files: stylesheetsDir + '/**/*.styl',
-        tasks: ['stylus'],
+        files: stylesheetsDir + '/**/*.less',
+        tasks: ['less'],
         options: {
           interrupt: true
         }
@@ -105,13 +105,13 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-stylus');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-bg-shell');
   grunt.loadNpmTasks('grunt-rendr-stitch');
 
-  grunt.registerTask('compile', ['handlebars', 'rendr_stitch', 'stylus']);
+  grunt.registerTask('compile', ['handlebars', 'rendr_stitch', 'less']);
 
   // Run the server and watch for file changes
   grunt.registerTask('server', ['bgShell:runNode', 'compile', 'watch']);
